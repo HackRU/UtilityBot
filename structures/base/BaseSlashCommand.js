@@ -15,7 +15,7 @@ class SlashCommand {
      * @typedef {Object} SlashCommandConfigOptions
      * @property {string} name Name of the command.
      * @property {boolean} guildRequired Whether the command must be used in a guild.
-     * @property {"general"|"admin"|"dev"} category Category of the command.
+     * @property {"general"|"team"|"admin"|"dev"} category Category of the command.
      * @property {number} [cooldown=0] The cooldown for the command.
      * @property {SlashCommandData} commandData The slash command data.
      */

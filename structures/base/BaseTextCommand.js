@@ -2,7 +2,7 @@ class TextCommand {
     /**
      * @typedef {Object} CommandConfigOptions
      * @property {string} name Name of the command.
-     * @property {"general"|"admin"|"dev"} category Category of the command.
+     * @property {"general"|"team"|"admin"|"dev"} category Category of the command.
      * @property {string} description The description for the command.
      * @property {string|string[]} usage The usage of the command.
      * @property {string|string[]} example The example usage of the command.

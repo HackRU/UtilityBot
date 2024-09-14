@@ -30,8 +30,10 @@ class InteractionCreateEvent extends Event {
         // command permission checks based on category
         if (command.config.category == "dev" && !this.HackRUBot.config.developers.includes(interaction.user.id))
             return interaction.reply({ ephemeral: true, embeds: [this.HackRUBot.util.errorEmbed("This command can only be used by developers.")] });
-        if (command.config.category == "admin" && !interaction.member.permissions.has("ManageGuild"))
+        if (command.config.category == "admin" && !this.HackRUBot.config.developers.includes(interaction.user.id) && !interaction.member.permissions.has("ManageGuild"))
             return interaction.reply({ ephemeral: true, embeds: [this.HackRUBot.util.errorEmbed("This command can only be used by administrators.")] });
+        if (command.config.category == "team" && !this.HackRUBot.config.developers.includes(interaction.user.id) && !interaction.member.roles.cache.find(r => r.id == this.HackRUBot.config.teamRoleID))
+            return interaction.reply({ ephemeral: true, embeds: [this.HackRUBot.util.errorEmbed("This command can only be used by authorized HackRU team members.")] });
 
         // bot requires admin permission to avoid dealing w/ individual role and channel permission checks (may change in the future)
         if (!interaction.guild.members.me.permissions.has("Administrator"))

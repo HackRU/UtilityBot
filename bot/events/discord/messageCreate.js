@@ -33,7 +33,8 @@ class MessageCreateEvent extends Event {
 
         // command permission checks based on category
         if (command.config.category == "dev" && !this.HackRUBot.config.developers.includes(message.author.id)) return;
-        if (command.config.category == "admin" && !message.member.permissions.has("ManageGuild")) return;
+        if (command.config.category == "admin" && !this.HackRUBot.config.developers.includes(message.author.id) && !message.member.permissions.has("ManageGuild")) return;
+        if (command.config.category == "team" && !this.HackRUBot.config.developers.includes(message.author.id) && !message.member.roles.cache.find(r => r.id == this.HackRUBot.config.teamRoleID)) return;
 
         // bot requires admin permission to avoid dealing w/ individual role and channel permission checks (may change in the future)
         if (!message.guild.members.me.permissions.has("Administrator"))

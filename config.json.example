@@ -3,5 +3,6 @@
     "developers": [
         "DISCORD_USER_ID"
     ],
-    "logsWebhook": "DISCORD_WEBHOOK_URL"
+    "logsWebhook": "DISCORD_WEBHOOK_URL",
+    "teamRoleID": "DISCORD_ROLE_ID"
 }

@@ -2,7 +2,7 @@ class Component {
     /**
      * @typedef {Object} CommandConfigOptions
      * @property {string} name Name of the component.
-     * @property {"general"|"admin"|"dev"} category Category of the component.
+     * @property {"general"|"team"|"admin"|"dev"} category Category of the component.
      * @property {number} [cooldown=0] The cooldown for the component.
      */
 
