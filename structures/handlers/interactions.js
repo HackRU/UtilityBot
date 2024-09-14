@@ -42,7 +42,7 @@ class InteractionHandler {
 
         });
 
-        readdir("./bot/interactions/components/", (err, categories) => {
+        /*readdir("./bot/interactions/components/", (err, categories) => {
 
             categories.forEach(category => {
 
@@ -63,7 +63,7 @@ class InteractionHandler {
 
             });
 
-        });
+        });*/
 
     }
 }

@@ -58,7 +58,7 @@ class InteractionCreateEvent extends Event {
 
             this.HackRUBot.logs.send({ embeds: [errorEmbed] });
 
-            if (!interaction.replied) interaction.reply({ ephemeral: true, embeds: [this.HackRUBot.util.errorEmbed("An internal error has occurred. Developers have been notified. Please contact staff for further assistance.")] });
+            if (!interaction.deferred && !interaction.replied) interaction.reply({ ephemeral: true, embeds: [this.HackRUBot.util.errorEmbed("An internal error has occurred. Developers have been notified. Please contact staff for further assistance.")] });
             else interaction.followUp({ ephemeral: true, embeds: [this.HackRUBot.util.errorEmbed("An internal error has occurred. Developers have been notified. Please contact staff for further assistance.")] });
         });
 

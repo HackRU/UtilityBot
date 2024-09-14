@@ -18,7 +18,7 @@ class PingCommand extends SlashCommand {
     }
 
     /**
-     * @param {import("discord.js").CommandInteraction} interaction 
+     * @param {import("discord.js").ChatInputCommandInteraction} interaction 
      */
     async run(interaction) {
         const msg = await interaction.reply({ content: "🏓 Pinging...", fetchReply: true });
