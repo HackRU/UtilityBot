@@ -1,0 +1,27 @@
+{
+  "name": "hackru-utilitybot",
+  "version": "1.0.0",
+  "description": "Utilities Discord bot for HackRU team.",
+  "main": "./bot/index.js",
+  "scripts": {
+    "start": "node bot/index.js",
+    "deploy-cmds": "node scripts/deploy-commands.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HackRU/UtilityBot.git"
+  },
+  "author": "Eshaan (@dastormer)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HackRU/UtilityBot/issues"
+  },
+  "homepage": "https://github.com/HackRU/UtilityBot#readme",
+  "dependencies": {
+    "discord.js": "^14.16.2",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "eslint": "^9.10.0"
+  }
+}
