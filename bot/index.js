@@ -49,7 +49,10 @@ class HackRUBotClient extends Client {
          * @type {import("../managers/UtilManager")}
          */
         this.util = new (require("../managers/UtilManager"))(this);
-
+        /**
+         * @type {import("../managers/DatabaseManager")}
+         */
+        this.db = new (require("../managers/DatabaseManager"))(this, process.env.MONGO_URI);
     }
 
     init() {
