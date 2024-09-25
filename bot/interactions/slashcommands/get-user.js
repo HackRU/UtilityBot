@@ -1,4 +1,4 @@
-const { EmbedBuilder, ApplicationCommandOptionType } = require("discord.js");
+const { EmbedBuilder, ApplicationCommandOptionType, ButtonBuilder, ActionRowBuilder } = require("discord.js");
 const SlashCommand = require("../../../structures/base/BaseSlashCommand");
 
 class GetUserCommand extends SlashCommand {
@@ -37,23 +37,23 @@ class GetUserCommand extends SlashCommand {
         if (!user) return interaction.editReply({ embeds: [this.HackRUBot.util.errorEmbed("No user found with specified email.")] });
 
         const userEmbed = new EmbedBuilder()
-            .setAuthor({ name: "HackRU User Information", iconURL: interaction.guild.iconURL() })
+            .setAuthor({ name: `HackRU User Information | ${user._id}`, iconURL: interaction.guild.iconURL() })
             .setTitle(user.first_name + " " + user.last_name)
-            .setDescription(`**Email:** ${user.email}\n**Phone Number:** ${user.phone_number}`)
+            .setDescription(`**Email:** ${user.email}\n**Phone Number:** ${user.phone_number || "UNDEFINED"}`)
             .setFields([
                 { name: "Status:", value: `\`${user.registration_status}\``, inline: true },
                 { name: "Created At:", value: user.created_at ? this.HackRUBot.util.createTimestamp(user.created_at) : "UNDEFINED", inline: true },
                 { name: "Registered At:", value: user.registered_at ? this.HackRUBot.util.createTimestamp(user.registered_at) : "UNDEFINED", inline: true },
                 { name: "Role(s):", value: Object.entries(user.role).filter(r => r[1] == true).map(r => r[0]).join(", ") || "N/A" },
-                { name: "Gender:", value: user.gender, inline: true },
-                { name: "Ethnicity:", value: user.ethnicity, inline: true },
-                { name: "DOB:", value: user.date_of_birth, inline: true },
-                { name: "School:", value: user.school },
-                { name: "Major:", value: user.major, inline: true },
-                { name: "Grad Year:", value: user.grad_year, inline: true },
-                { name: "Study Level:", value: user.level_of_study, inline: true },
-                { name: "Votes:", value: user.votes?.toString(), inline: true },
-                { name: "Shirt Size:", value: user.shirt_size, inline: true },
+                { name: "Gender:", value: user.gender || "UNDEFINED", inline: true },
+                { name: "Ethnicity:", value: user.ethnicity || "UNDEFINED", inline: true },
+                { name: "DOB:", value: user.date_of_birth || "UNDEFINED", inline: true },
+                { name: "School:", value: user.school || "UNDEFINED" },
+                { name: "Major:", value: user.major || "UNDEFINED", inline: true },
+                { name: "Grad Year:", value: user.grad_year || "UNDEFINED", inline: true },
+                { name: "Study Level:", value: user.level_of_study || "UNDEFINED", inline: true },
+                { name: "Votes:", value: user.votes?.toString() || "UNDEFINED", inline: true },
+                { name: "Shirt Size:", value: user.shirt_size || "UNDEFINED", inline: true },
                 { name: "GitHub:", value: user.github || "UNDEFINED", inline: true },
                 { name: "Dietary Restrictions:", value: user.dietary_restrictions || "N/A", inline: true },
                 { name: "Special Needs:", value: user.special_needs || "N/A", inline: true },
@@ -64,7 +64,12 @@ class GetUserCommand extends SlashCommand {
             .setFooter({ text: "Data as of" })
             .setTimestamp();
 
-        interaction.editReply({ embeds: [userEmbed] });
+        const dataButton = new ButtonBuilder()
+            .setCustomId("download-data")
+            .setLabel("Download User Data")
+            .setStyle("Secondary");
+
+        interaction.editReply({ embeds: [userEmbed], components: [new ActionRowBuilder().addComponents(dataButton)] });
 
         return;
     }

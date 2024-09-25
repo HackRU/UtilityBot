@@ -42,28 +42,20 @@ class InteractionHandler {
 
         });
 
-        /*readdir("./bot/interactions/components/", (err, categories) => {
+        readdir(`./bot/interactions/components/`, (err, files) => {
 
-            categories.forEach(category => {
+            const cmdFiles = files.filter(f => f.split(".").pop() === "js");
 
-                readdir(`./bot/interactions/components/${category}`, (err, files) => {
+            console.log(`INFO | Loading ${cmdFiles.length} components...`);
 
-                    const cmdFiles = files.filter(f => f.split(".").pop() === "js");
+            for (const f in cmdFiles) {
+                const cmd = new (require(`../../bot/interactions/components/${cmdFiles[f]}`))(this.HackRUBot);
+                this.HackRUBot.components.set(cmd.config.name, cmd);
+            }
 
-                    console.log(`INFO | Loading ${cmdFiles.length} ${category} components...`);
+            console.log(`INFO | Loaded ${cmdFiles.length} components`);
 
-                    for (const f in cmdFiles) {
-                        const cmd = new (require(`../../bot/interactions/components/${category}/${cmdFiles[f]}`))(this.HackRUBot);
-                        this.HackRUBot.components.set(cmd.config.name, cmd);
-                    }
-
-                    console.log(`INFO | Loaded ${cmdFiles.length} ${category} components`);
-
-                });
-
-            });
-
-        });*/
+        });
 
     }
 }
