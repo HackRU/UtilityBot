@@ -1,4 +1,4 @@
-const { ChildProcess } = require("child_process");
+const { exec } = require("child_process");
 const TextCommand = require("../../../structures/base/BaseTextCommand");
 const { EmbedBuilder } = require("discord.js");
 
@@ -24,7 +24,7 @@ class ExecCommand extends TextCommand {
 
         const hrStart = process.hrtime();
 
-        ChildProcess.exec(args.join(" "), (error, stdout) => {
+        exec(args.join(" "), (error, stdout) => {
 
             const hrDiff = process.hrtime(hrStart);
 

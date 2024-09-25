@@ -42,7 +42,7 @@ class InteractionHandler {
 
         });
 
-        readdir(`./bot/interactions/components/`, (err, files) => {
+        readdir("./bot/interactions/components/", (err, files) => {
 
             const cmdFiles = files.filter(f => f.split(".").pop() === "js");
 
