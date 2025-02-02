@@ -44,11 +44,13 @@ class EventNumbersCommand extends SlashCommand {
             "icims-tech-talk",
             "breakfast-sunday",
             "lunch-sunday",
+            "breakfast-sunday-real",
+            "lunch-sunday-real",
         ];
 
         const infoEmbed = new EmbedBuilder()
             .setAuthor({ name: "HackRU Events Attendance", iconURL: interaction.guild.iconURL() })
-            .setDescription("Count of checked in users who attended events. Duplicates are not counted.")
+            .setDescription("Count of checked in users who attended events. Duplicates are not counted. For an event not listed here, specify the `event-name` option in command.")
             .setColor("Blurple")
             .setFooter({ text: "Data as of" })
             .setTimestamp();
