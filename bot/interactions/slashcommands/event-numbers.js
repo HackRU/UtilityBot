@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require("discord.js");
+const { EmbedBuilder, ApplicationCommandOptionType } = require("discord.js");
 const SlashCommand = require("../../../structures/base/BaseSlashCommand");
 
 class EventNumbersCommand extends SlashCommand {
@@ -13,6 +13,14 @@ class EventNumbersCommand extends SlashCommand {
             cooldown: 3,
             commandData: {
                 description: "Fetch event attendance data from HackRU's database.",
+                options: [
+                    {
+                        name: "event-name",
+                        type: ApplicationCommandOptionType.String,
+                        description: "Enter the database name of the event to get attendance.",
+                        required: false,
+                    },
+                ],
             },
         });
     }
@@ -45,9 +53,15 @@ class EventNumbersCommand extends SlashCommand {
             .setFooter({ text: "Data as of" })
             .setTimestamp();
 
-        for (const event of events) {
+        if (!interaction.options.getString("event-name", false)) {
+            for (const event of events) {
+                const count = await users.countDocuments({ registration_status: "checked_in", [`day_of.event.${event}.attend`]: { $gte: 1 } });
+                infoEmbed.addFields({ name: event, value: `\`${count}\``, inline: true });
+            }
+        } else {
+            const event = interaction.options.getString("event-name");
             const count = await users.countDocuments({ registration_status: "checked_in", [`day_of.event.${event}.attend`]: { $gte: 1 } });
-            infoEmbed.addFields({ name: event, value: `\`${count}\``, inline: true });
+            infoEmbed.addFields({ name: event, value: `\`${count}\`` });
         }
 
         interaction.editReply({ embeds: [infoEmbed] });
