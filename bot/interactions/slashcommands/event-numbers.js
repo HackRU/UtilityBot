@@ -40,7 +40,7 @@ class EventNumbersCommand extends SlashCommand {
             "figma-workshop",
             "wakefern-coffee-chat",
             "wakefern-cafe",
-            "midnight-surpise",
+            "midnight-surprise",
             "icims-tech-talk",
             "breakfast-sunday",
             "lunch-sunday",
