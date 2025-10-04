@@ -34,18 +34,16 @@ class EventNumbersCommand extends SlashCommand {
         const users = await this.HackRUBot.db.getCollection("users");
 
         const events = [
-            "lunch-saturday",
-            "dinner-saturday",
-            "github-copilot",
-            "figma-workshop",
+            "f-25 breakfast-sunday",
+            "f-25 lunch-sunday-real",
+            "rad-workshop",
+            "idea-workshop",
             "wakefern-coffee-chat",
             "wakefern-cafe",
             "midnight-surprise",
-            "icims-tech-talk",
-            "breakfast-sunday",
-            "lunch-sunday",
-            "breakfast-sunday-real",
-            "lunch-sunday-real",
+            "mlh-workshops",
+            "f-25 lunch-saturday",
+            "f-25 dinner-saturday",
         ];
 
         const infoEmbed = new EmbedBuilder()
