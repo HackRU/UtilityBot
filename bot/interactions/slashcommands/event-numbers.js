@@ -39,7 +39,7 @@ class EventNumbersCommand extends SlashCommand {
             "f-26 breakfast-sunday",
             "f-26 lunch-sunday",
             "f-26 midnight-surprise",
-            "f-26 Rutgers CES Adobe Workshop",
+            "f-26 Rutgers RES Adobe Workshop",
             "f-26 MLH Workshop"
         ];
 
