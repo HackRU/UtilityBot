@@ -34,34 +34,37 @@ class EventNumbersCommand extends SlashCommand {
         const users = await this.HackRUBot.db.getCollection("users");
 
         const events = [
-            "f-25 breakfast-sunday",
-            "f-25 lunch-sunday-real",
-            "rad-workshop",
-            "idea-workshop",
-            "wakefern-coffee-chat",
-            "wakefern-cafe",
-            "midnight-surprise",
-            "mlh-workshops",
-            "f-25 lunch-saturday",
-            "f-25 dinner-saturday",
+            "f-26 lunch-saturday",
+            "f-26 dinner-saturday",
+            "f-26 breakfast-sunday",
+            "f-26 lunch-sunday",
+            "f-26 midnight-surprise",
+            "f-26 Rutgers CES Adobe Workshop",
+            "f-26 MLH Workshop"
         ];
 
         const infoEmbed = new EmbedBuilder()
             .setAuthor({ name: "HackRU Events Attendance", iconURL: interaction.guild.iconURL() })
-            .setDescription("Count of checked in users who attended events. Duplicates are not counted. For an event not listed here, specify the `event-name` option in command.")
+            .setDescription("Total and unique event attendance counts for the current season. For an event not listed here, specify the `event-name` option in command.")
             .setColor("Blurple")
             .setFooter({ text: "Data as of" })
             .setTimestamp();
 
         if (!interaction.options.getString("event-name", false)) {
             for (const event of events) {
-                const count = await users.countDocuments({ registration_status: "checked_in", [`day_of.event.${event}.attend`]: { $gte: 1 } });
-                infoEmbed.addFields({ name: event, value: `\`${count}\``, inline: true });
+                const [result] = await users.aggregate([
+                    { $match: { registration_status: "checked_in", [`day_of.event.${event}.attend`]: { $gte: 1 } } },
+                    { $group: { _id: null, total: { $sum: `$day_of.event.${event}.attend` }, unique: { $sum: 1 } } },
+                ]).toArray();
+                infoEmbed.addFields({ name: event, value: `Total: \`${result?.total ?? 0}\`\nUnique: \`${result?.unique ?? 0}\``, inline: true });
             }
         } else {
             const event = interaction.options.getString("event-name");
-            const count = await users.countDocuments({ registration_status: "checked_in", [`day_of.event.${event}.attend`]: { $gte: 1 } });
-            infoEmbed.addFields({ name: event, value: `\`${count}\`` });
+            const [result] = await users.aggregate([
+                { $match: { registration_status: "checked_in", [`day_of.event.${event}.attend`]: { $gte: 1 } } },
+                { $group: { _id: null, total: { $sum: `$day_of.event.${event}.attend` }, unique: { $sum: 1 } } },
+            ]).toArray();
+            infoEmbed.addFields({ name: event, value: `Total: \`${result?.total ?? 0}\`\nUnique: \`${result?.unique ?? 0}\`` });
         }
 
         interaction.editReply({ embeds: [infoEmbed] });
